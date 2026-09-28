@@ -34,6 +34,34 @@ const CARDS = [
     description:
       "Why response latency, micro-animations, and sound design determine whether users feel confident or confused after every action.",
   },
+  {
+    id: "c5",
+    title: "Dark Mode Done Right",
+    category: "Visual Design",
+    description:
+      "Beyond inverting colors — how to design true dark themes with proper contrast ratios, reduced eye strain, and semantic color tokens.",
+  },
+  {
+    id: "c6",
+    title: "Micro-interactions at Scale",
+    category: "Interaction",
+    description:
+      "Small moments of delight that reinforce product personality. How to build a micro-interaction library without exploding your bundle.",
+  },
+  {
+    id: "c7",
+    title: "Type Systems for UI",
+    category: "Engineering",
+    description:
+      "TypeScript isn't just for correctness — it's a design tool. How strongly-typed component APIs eliminate entire classes of UI bugs.",
+  },
+  {
+    id: "c8",
+    title: "Scroll-Driven Experiences",
+    category: "Interaction",
+    description:
+      "Native scroll-driven animations are finally here. A practical guide to the new CSS animation timeline and when NOT to use it.",
+  },
 ];
 
 type RecorderState = "idle" | "recording" | "done";

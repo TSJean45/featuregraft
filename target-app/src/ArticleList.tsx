@@ -55,6 +55,36 @@ const ARTICLES: Article[] = [
       "How we refactored a 200-component design system into primitives that compose predictably — and what we'd do differently if starting over today.",
     body: "The warning sign was when adding a new variant to Button required changing seven files. We had built a component library, not a component system. The refactor replaced monolithic components with small, single-responsibility primitives: a Pressable, a Text, a Surface. Compositions of these primitives replaced the original components entirely. The result was fewer components, more flexibility, and — counterintuitively — easier onboarding for new engineers.",
   },
+  {
+    id: "a5",
+    title: "Accessibility Is Not a Checklist",
+    author: "Priya Nair",
+    date: "Apr 15, 2025",
+    tag: "Accessibility",
+    excerpt:
+      "WCAG compliance is the floor, not the ceiling. Real accessibility means designing for the full spectrum of how people experience your product.",
+    body: "Screen readers, keyboard navigation, and color contrast ratios matter. But so does cognitive load, motor impairments, and situational disabilities — like using your phone in bright sunlight one-handed. Accessibility audits catch violations. Accessibility design anticipates them. The shift from reactive to proactive is what separates compliant products from genuinely inclusive ones.",
+  },
+  {
+    id: "a6",
+    title: "The Great State Management Rethink",
+    author: "Jonas Weber",
+    date: "Mar 28, 2025",
+    tag: "Engineering",
+    excerpt:
+      "From Redux to Zustand to server state — why the pendulum swung and where it's settling in 2025.",
+    body: "Redux wasn't wrong. It was just used for everything, including things it was never designed for. Server state (React Query, SWR) handles async data. Local UI state belongs in components. Global client state is often much smaller than we thought. The result is less boilerplate, better colocation, and dramatically simpler mental models. The lesson isn't 'Redux bad' — it's 'right tool, right scope'.",
+  },
+  {
+    id: "a7",
+    title: "Designing with Real Data",
+    author: "Ama Asante",
+    date: "Mar 10, 2025",
+    tag: "UX Research",
+    excerpt:
+      "Mockups with Lorem Ipsum lie. How testing with production-realistic data catches an entire category of UI bugs before they ship.",
+    body: "A username field that fits 'John Doe' breaks with 'Bartholomäus Klingelschmitt'. A price that fits '$9.99' overflows at '$1,249,999.99'. Edge cases aren't edge cases when they represent real users. Designing with realistic data — long strings, empty states, maximum values — surfaces layout bugs, truncation issues, and hierarchy problems that pixel-perfect Figma mocks will never reveal.",
+  },
 ];
 
 export function ArticleList({ interactive }: { interactive: boolean }) {
