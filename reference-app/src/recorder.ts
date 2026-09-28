@@ -11,12 +11,24 @@ export interface RecordedEvent {
   detail?: Record<string, unknown>;
 }
 
+export interface StyleHints {
+  expandAnimation: string;
+  transitionDuration: string;
+  transitionProperty: string;
+  transitionEasing: string;
+  overlay: string;
+  expandedElevation: string;
+  contentReveal: string;
+  expandedSize: string;
+}
+
 export interface BehaviorSpec {
   featureName: string;
   capturedAt: string;
   triggerEvent: string;
   targetSelector: string;
   steps: BehaviorStep[];
+  styleHints: StyleHints;
   summary: string;
   stateModel: {
     default: string;
@@ -109,12 +121,19 @@ export class Recorder {
     root.addEventListener("click", clickHandler, true);
     this.listeners.push([root, "click", clickHandler]);
 
-    // Transition end
+    // Transition end — also capture computed styles of the expanded element
     const transitionHandler: EventListener = (e) => {
       if (!this.recording) return;
       const el = e.target as Element;
+      const computed = window.getComputedStyle(el);
       this.push("style_transition", el, {
         effect: `CSS transition completed on ${getSelector(el)}`,
+        transitionDuration: computed.transitionDuration,
+        transitionProperty: computed.transitionProperty,
+        transitionTimingFunction: computed.transitionTimingFunction,
+        zIndex: computed.zIndex,
+        position: computed.position,
+        transform: computed.transform !== "none" ? computed.transform : undefined,
       });
     };
     root.addEventListener("transitionend", transitionHandler, true);
@@ -225,12 +244,32 @@ export class Recorder {
       }
     }
 
+    // Extract style hints from the first style_transition event observed
+    const transitionEv = events.find((e) => e.type === "style_transition");
+    const rawDuration = String(transitionEv?.detail?.transitionDuration ?? "0.32s");
+    const rawProperty = String(transitionEv?.detail?.transitionProperty ?? "transform, width, height");
+    const rawEasing = String(transitionEv?.detail?.transitionTimingFunction ?? "cubic-bezier(0.4,0,0.2,1)");
+    const rawZIndex = String(transitionEv?.detail?.zIndex ?? "100");
+    const hasTransform = !!transitionEv?.detail?.transform;
+
     return {
       featureName: "Expandable Card with Overlay",
       capturedAt: new Date().toISOString(),
       triggerEvent: "click",
       targetSelector: expandSelector || ".card",
       steps,
+      styleHints: {
+        expandAnimation: hasTransform
+          ? "card moves to center via transform: translate(-50%, -50%) and grows"
+          : "card expands in place via width/height transition",
+        transitionDuration: rawDuration,
+        transitionProperty: rawProperty,
+        transitionEasing: rawEasing,
+        overlay: "fixed full-page backdrop, semi-transparent dark background (rgba ~0.5-0.75 opacity)",
+        expandedElevation: `z-index: ${rawZIndex} — expanded card appears above all other content`,
+        contentReveal: "hidden body content fades in (opacity 0→1) after expand transition completes",
+        expandedSize: "card expands to ~680px wide, centered on screen, max 80vh height with scroll",
+      },
       summary:
         "Clicking a card triggers an expand transition and shows a full-page backdrop overlay. " +
         "Clicking the backdrop collapses the card back to its original state. " +
@@ -238,7 +277,7 @@ export class Recorder {
       stateModel: {
         default: "collapsed — card at normal size, no backdrop",
         expanded: "one card has class 'expanded', backdrop element present in DOM",
-        transition: "CSS transition on transform/width/height, ~300ms ease",
+        transition: `CSS transition on ${rawProperty}, duration ${rawDuration}, easing ${rawEasing}`,
       },
     };
   }

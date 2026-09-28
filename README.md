@@ -2,7 +2,7 @@
 
 > **Don't describe the feature. Show it.**
 
-FeatureGraft lets developers demonstrate an interaction they like on a reference page — the interaction is captured as a structured behavior specification, which IBM Bob uses to inspect an existing codebase and recreate equivalent behavior using that application's own components and styling.
+You ever see a sick interaction on another app and think "I want that"? So you spend 2 hours describing it to an AI and it still doesn't get it. FeatureGraft fixes that. Show it once, Bob figures out the rest. Behavior transplanted. CSS generated from scratch for your app. No source code stolen.
 
 **FeatureGraft transfers behavior — not source code.**
 

@@ -6,12 +6,29 @@ export default function App() {
   const [grafted, setGrafted] = useState(false);
   const [grafting, setGrafting] = useState(false);
 
+  const GRAFT_STEPS = [
+    "📖 Reading behavior-spec.json…",
+    "🔍 Inspecting target codebase…",
+    "🎨 Deriving CSS from styleHints…",
+    "⚙️ Implementing interaction…",
+    "✓ Behavior grafted",
+  ];
+  const [graftStep, setGraftStep] = useState(0);
+
   function applyGraft() {
     setGrafting(true);
-    setTimeout(() => {
-      setGrafting(false);
-      setGrafted(true);
-    }, 1800);
+    setGraftStep(0);
+    let step = 0;
+    const interval = setInterval(() => {
+      step++;
+      if (step < GRAFT_STEPS.length - 1) {
+        setGraftStep(step);
+      } else {
+        clearInterval(interval);
+        setGrafting(false);
+        setGrafted(true);
+      }
+    }, 600);
   }
 
   return (
@@ -30,7 +47,7 @@ export default function App() {
             )}
             {grafting && (
               <span className="graft-status grafting">
-                <span className="graft-spinner" /> Grafting behavior…
+                <span className="graft-spinner" /> {GRAFT_STEPS[graftStep]}
               </span>
             )}
             {grafted && (
