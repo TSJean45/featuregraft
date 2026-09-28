@@ -87,6 +87,15 @@
   background: #dbeafe;
 }
 
+.btn-graft-hover {
+  border-color: #7c3aed;
+  background: #f5f3ff;
+  color: #7c3aed;
+}
+.btn-graft-hover:hover {
+  background: #ede9fe;
+}
+
 .graft-status {
   font-size: 13px;
   font-weight: 500;

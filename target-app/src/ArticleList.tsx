@@ -87,7 +87,7 @@ const ARTICLES: Article[] = [
   },
 ];
 
-export function ArticleList({ interactive }: { interactive: boolean }) {
+export function ArticleList({ interactive, hoverInteractive }: { interactive: boolean; hoverInteractive: boolean }) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   function handleExpand(id: string) {
@@ -109,6 +109,7 @@ export function ArticleList({ interactive }: { interactive: boolean }) {
             article={article}
             expanded={expandedId === article.id}
             interactive={interactive}
+            hoverInteractive={hoverInteractive}
             onExpand={handleExpand}
           />
         ))}

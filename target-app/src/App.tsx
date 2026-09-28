@@ -2,33 +2,55 @@ import { useState } from "react";
 import "./App.css";
 import { ArticleList } from "./ArticleList";
 
+const EXPAND_STEPS = [
+  "📖 Reading behavior-spec.json…",
+  "🔍 Inspecting target codebase…",
+  "🎨 Deriving CSS from styleHints…",
+  "⚙️ Implementing expand interaction…",
+];
+
+const HOVER_STEPS = [
+  "📖 Reading hover-spec.json…",
+  "🔍 Inspecting ArticleCard component…",
+  "🎨 Deriving hover transition from styleHints…",
+  "⚙️ Implementing hover preview panel…",
+];
+
 export default function App() {
   const [grafted, setGrafted] = useState(false);
   const [grafting, setGrafting] = useState(false);
-
-  const GRAFT_STEPS = [
-    "📖 Reading behavior-spec.json…",
-    "🔍 Inspecting target codebase…",
-    "🎨 Deriving CSS from styleHints…",
-    "⚙️ Implementing interaction…",
-    "✓ Behavior grafted",
-  ];
+  const [hoverGrafted, setHoverGrafted] = useState(false);
+  const [hoverGrafting, setHoverGrafting] = useState(false);
   const [graftStep, setGraftStep] = useState(0);
+  const [hoverGraftStep, setHoverGraftStep] = useState(0);
 
-  function applyGraft() {
-    setGrafting(true);
-    setGraftStep(0);
+  function runGraft(
+    steps: string[],
+    setStep: (n: number) => void,
+    setRunning: (b: boolean) => void,
+    setDone: (b: boolean) => void
+  ) {
+    setRunning(true);
+    setStep(0);
     let step = 0;
     const interval = setInterval(() => {
       step++;
-      if (step < GRAFT_STEPS.length - 1) {
-        setGraftStep(step);
+      if (step < steps.length) {
+        setStep(step);
       } else {
         clearInterval(interval);
-        setGrafting(false);
-        setGrafted(true);
+        setRunning(false);
+        setDone(true);
       }
     }, 600);
+  }
+
+  function applyGraft() {
+    runGraft(EXPAND_STEPS, setGraftStep, setGrafting, setGrafted);
+  }
+
+  function applyHoverGraft() {
+    runGraft(HOVER_STEPS, setHoverGraftStep, setHoverGrafting, setHoverGrafted);
   }
 
   return (
@@ -42,17 +64,27 @@ export default function App() {
           <div className="graft-controls">
             {!grafted && !grafting && (
               <button className="btn-graft" onClick={applyGraft}>
-                ⚡ Apply Graft
+                ⚡ Graft Expand
               </button>
             )}
             {grafting && (
               <span className="graft-status grafting">
-                <span className="graft-spinner" /> {GRAFT_STEPS[graftStep]}
+                <span className="graft-spinner" /> {EXPAND_STEPS[graftStep]}
+              </span>
+            )}
+            {grafted && !hoverGrafted && !hoverGrafting && (
+              <button className="btn-graft btn-graft-hover" onClick={applyHoverGraft}>
+                ⚡ Graft Hover Preview
+              </button>
+            )}
+            {hoverGrafting && (
+              <span className="graft-status grafting">
+                <span className="graft-spinner" /> {HOVER_STEPS[hoverGraftStep]}
               </span>
             )}
             {grafted && (
               <span className="graft-status done">
-                ✓ Behavior grafted
+                ✓ {hoverGrafted ? "2 behaviors grafted" : "Expand grafted"}
               </span>
             )}
           </div>
@@ -68,7 +100,7 @@ export default function App() {
               : "A clean reading list. Cards are static — no interactions yet."}
           </p>
         </div>
-        <ArticleList interactive={grafted} />
+        <ArticleList interactive={grafted} hoverInteractive={hoverGrafted} />
       </main>
     </div>
   );
