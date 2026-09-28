@@ -62,8 +62,9 @@ Bob reads `behavior-spec.json` + your codebase. Understands your components. Imp
   ]
 }
 ```
-
+<img width="1102" height="802" alt="image" src="https://github.com/user-attachments/assets/e4b7a7e7-a13a-460a-92a5-8d4efd1b9263" />
 **Target app** (light blog) → click **⚡ Apply Graft** → Bob reads spec → derives CSS → injects behavior → same interaction, different app.
+<img width="1062" height="910" alt="image" src="https://github.com/user-attachments/assets/a2a3c947-084d-4825-b80a-97fd3462ac60" />
 
 ---
 
