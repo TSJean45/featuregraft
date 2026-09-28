@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import "./App.css";
 import { Backdrop } from "./Backdrop";
 import { Card } from "./Card";
+import { HoverCard } from "./HoverCard";
 import type { BehaviorSpec } from "./recorder";
 import { Recorder } from "./recorder";
 
@@ -61,6 +62,41 @@ const CARDS = [
     category: "Interaction",
     description:
       "Native scroll-driven animations are finally here. A practical guide to the new CSS animation timeline and when NOT to use it.",
+  },
+];
+
+const HOVER_CARDS = [
+  {
+    id: "h1",
+    title: "Component Reuse Rate",
+    category: "Design System",
+    stat: "84%",
+    statLabel: "of UI built from shared components",
+    previewText: "Teams that invest in a shared component library ship features 2.3× faster after the first 6 months. The upfront cost is real — the compounding return is realer.",
+  },
+  {
+    id: "h2",
+    title: "Time to First Meaningful Paint",
+    category: "Performance",
+    stat: "1.2s",
+    statLabel: "median across top 100 SaaS apps",
+    previewText: "First Meaningful Paint correlates more strongly with perceived quality than any other metric. Users form a trust judgment in under 50ms — before they've read a single word.",
+  },
+  {
+    id: "h3",
+    title: "Keyboard Nav Coverage",
+    category: "Accessibility",
+    stat: "31%",
+    statLabel: "of apps pass basic keyboard audit",
+    previewText: "Most teams discover their keyboard navigation is broken when a power user complains. By then you've already excluded everyone who depends on it daily.",
+  },
+  {
+    id: "h4",
+    title: "Design Token Adoption",
+    category: "Consistency",
+    stat: "↑61%",
+    statLabel: "reduction in one-off color values",
+    previewText: "Switching from hardcoded hex values to semantic design tokens is the single highest-leverage consistency improvement a mature product team can make.",
   },
 ];
 
@@ -170,6 +206,17 @@ export default function App() {
               expanded={expandedId === card.id}
               onExpand={handleExpand}
             />
+          ))}
+        </div>
+
+        <div className="section-divider">
+          <h2 className="section-label">Hover Preview — another behavior to graft</h2>
+          <p className="section-sub">Hover a card to see the preview panel slide in. A completely different interaction pattern — same recorder captures it.</p>
+        </div>
+
+        <div className="cards-grid">
+          {HOVER_CARDS.map((card) => (
+            <HoverCard key={card.id} {...card} />
           ))}
         </div>
       </main>

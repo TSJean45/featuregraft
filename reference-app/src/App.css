@@ -171,6 +171,25 @@
   gap: 16px;
 }
 
+.section-divider {
+  margin-top: 64px;
+  margin-bottom: 32px;
+  padding-top: 32px;
+  border-top: 1px solid #1e1e1e;
+}
+
+.section-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.section-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
 /* ── Spec Panel ─────────────────────────────── */
 .spec-panel {
   background: var(--surface);
