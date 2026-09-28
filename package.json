@@ -1,0 +1,12 @@
+{
+  "name": "featuregraft",
+  "version": "1.0.0",
+  "description": "FeatureGraft — Don't describe the feature. Show it.",
+  "private": true,
+  "scripts": {
+    "dev:reference": "npm run dev --prefix reference-app",
+    "dev:target": "npm run dev --prefix target-app",
+    "build:reference": "npm run build --prefix reference-app",
+    "build:target": "npm run build --prefix target-app"
+  }
+}

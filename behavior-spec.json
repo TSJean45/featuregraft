@@ -1,0 +1,64 @@
+{
+  "featureName": "Expandable Card with Overlay",
+  "capturedAt": "2025-06-28T12:00:00.000Z",
+  "triggerEvent": "click",
+  "targetSelector": "article.card",
+  "steps": [
+    {
+      "step": 1,
+      "action": "click",
+      "target": "article.card",
+      "effect": "triggers expand interaction"
+    },
+    {
+      "step": 2,
+      "action": "class_added",
+      "target": "article.card",
+      "value": "expanded",
+      "effect": "element enters 'expanded' state"
+    },
+    {
+      "step": 3,
+      "action": "element_appeared",
+      "target": "div.backdrop",
+      "effect": "div added to DOM — semi-transparent overlay covers entire page"
+    },
+    {
+      "step": 4,
+      "action": "style_transition",
+      "target": "article.card",
+      "effect": "CSS transition completed — card expands in size, additional content reveals"
+    },
+    {
+      "step": 5,
+      "action": "click",
+      "target": "div.backdrop",
+      "effect": "triggers collapse / dismiss"
+    },
+    {
+      "step": 6,
+      "action": "class_removed",
+      "target": "article.card",
+      "value": "expanded",
+      "effect": "element leaves 'expanded' state"
+    },
+    {
+      "step": 7,
+      "action": "element_disappeared",
+      "target": "div.backdrop",
+      "effect": "div removed from DOM — overlay dismissed"
+    },
+    {
+      "step": 8,
+      "action": "style_transition",
+      "target": "article.card",
+      "effect": "CSS transition completed — card collapses back to original size"
+    }
+  ],
+  "summary": "Clicking a card triggers an expand transition and shows a full-page backdrop overlay. Clicking the backdrop collapses the card back to its original state. Only one card can be expanded at a time.",
+  "stateModel": {
+    "default": "collapsed — card at normal size, no backdrop",
+    "expanded": "one card has class 'expanded', backdrop element present in DOM",
+    "transition": "CSS transition on transform/width/height, ~300ms ease"
+  }
+}

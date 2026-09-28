@@ -1,0 +1,19 @@
+.article-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Backdrop — transplanted from behavior-spec.json step 3 */
+.article-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 50;
+  animation: backdropFadeIn 200ms ease forwards;
+}
+
+@keyframes backdropFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
